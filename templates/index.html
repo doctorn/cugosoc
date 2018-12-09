@@ -1,0 +1,122 @@
+{% import "macros.jinja" as macros %}
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block stylesheet %}index.css{% endblock %}
+{% block content %}
+  <script type="text/javascript">
+    document.querySelector("#home_link").classList.add("selected");
+  </script>
+  <div id="gallery">
+    <div id="gallery_shadow"></div>
+    {% for img in gallery_photos %}
+    <img src="/static/img/gallery/{{ img }}"/>
+    {% endfor %}
+    <div id="gallery_controls"></div>
+  </div>
+  <script type="text/javascript">
+    function size(e) {
+      var computedWidth = window.getComputedStyle(e).width;
+      var computedHeight = window.getComputedStyle(e).height;
+      var width = parseInt(computedWidth.slice(0, -2));
+      var height = parseInt(computedHeight.slice(0, -2));
+
+      if (height < 400) {
+        e.style["width"] = "auto";
+        e.style["height"] = "100%";
+      } 
+      
+      if (width < window.innerWidth) {
+        e.style["width"] = "100%";
+        e.style["height"] = "auto";
+      } 
+    }
+
+    function position(e) {
+      var computedWidth = window.getComputedStyle(e).width;
+      var computedHeight = window.getComputedStyle(e).height;
+      var width = parseInt(computedWidth.slice(0, -2));
+      var height = parseInt(computedHeight.slice(0, -2));
+
+      if (height <= width) {
+        e.style["top"] = (200 - height / 2) + "px";
+        e.style["left"] = 0;
+      } else {
+        e.style["top"] = 0;
+        e.style["left"] = (window.innerWidth / 2 - width / 2) + "px";
+      }
+    }
+
+    function sizeGallery() {
+      document.querySelectorAll("#gallery img").forEach(function (e) {
+        if (e.complete) {
+          size(e); 
+          position(e); 
+        } else {
+          e.addEventListener('load', function() {
+            size(e); 
+            position(e); 
+          });
+        }
+      });
+    }
+
+    var gallerySelected = 0;
+    var imageCount = document.querySelectorAll("#gallery img").length;
+    var updater;
+
+    function updateSelected(newSelection) {
+      newSelection = newSelection % imageCount;
+      var images = document.querySelectorAll("#gallery img");
+      var buttons = document.querySelectorAll("#gallery_controls div");
+      images[gallerySelected].classList.remove("active");
+      buttons[gallerySelected].classList.remove("active");
+      gallerySelected = newSelection;
+      images[gallerySelected].classList.add("active");
+      buttons[gallerySelected].classList.add("active");
+    }
+
+    function startUpdating() {
+      updater = setInterval(function() {
+        updateSelected(gallerySelected + 1);
+      }, 10000);
+    }
+
+    function initGallery() {
+      sizeGallery();
+      var images = document.querySelectorAll("#gallery img");
+      for (var i = 0; i < images.length; i++) {
+        var div = document.createElement("div");
+        if (i == 0) {
+          div.classList.add("active");
+          images[i].classList.add("active");
+        }
+        (function() {
+          var j = i;
+          div.onclick = function () {
+            updateSelected(j);
+            clearInterval(updater);
+            startUpdating();
+          };
+        })();
+        document.querySelector("#gallery_controls").appendChild(div); 
+      }
+      startUpdating();
+    }
+
+    window.addEventListener('resize', sizeGallery);
+    initGallery();
+  </script>
+  <br>
+  <h1>Welcome to the Cambridge University Go Society!</h1>
+  <p>For information about who we are, check our <a href="/about/">about page</a>. If you're looking to learn to play Go, check out our tutorial <a href="/go/">here</a>. If you're interested in coming along, our events this week are listed below, and definitely consider <a href="/join/">joining our mailing list</a>!</p>
+  <h2>Events this Week</h2>
+  <h3><a href="/events/"><span class="mdi mdi-calendar"></span>View all events</a></h3>
+  {% if (events is defined) and events %}
+    {% for event in events %}
+      {{ macros.add_event(event) }}
+    {% endfor %}
+  {% else %}
+    <p>No events to show!</p>
+    <p>Check our <a href="/events/">events page</a> for a complete list of all upcoming events!</p>
+  {% endif %}
+{% endblock %}

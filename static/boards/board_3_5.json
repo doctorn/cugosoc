@@ -1,0 +1,35 @@
+{
+  "size": 9,
+  "start": {
+    "x": 2, 
+    "y": 2
+  },
+  "end": {
+    "x": 6, 
+    "y": 6
+  },
+  "stones": [
+    {
+      "x": 4, 
+      "y": 4,
+      "black": true
+    },
+    {
+      "x": 5, 
+      "y": 4,
+      "black": false
+    },
+    {
+      "x": 4, 
+      "y": 3,
+      "black": false,
+      "label": "2"
+    },
+    {
+      "x": 4, 
+      "y": 5,
+      "black": false,
+      "label": "3"
+    }
+  ]
+}

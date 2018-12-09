@@ -1,0 +1,19 @@
+{% import "macros.jinja" as macros %}
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+  <script type="text/javascript">
+    document.querySelector("#events_link").classList.add("selected");
+  </script>
+  <h1>Upcoming</h1>
+  <h3><a href="/events/"><span class="mdi mdi-arrow-left"></span>All events</a></h3>
+  <p>Listed here are all the upcoming events on the site.</p>
+  {% if (events is defined) and events %}
+    {% for event in events %}
+      {{ macros.add_event(event) }}
+    {% endfor %}
+  {% else %}
+    <p>No events to show!</p>
+    <p>Check back here soon for new upcoming events!</p>
+  {% endif %}
+{% endblock %}

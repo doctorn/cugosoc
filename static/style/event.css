@@ -1,0 +1,21 @@
+.event {
+  padding: 0px;
+  background-color: #FDFDFD;
+  margin-bottom: 0px;
+  box-shadow: none;
+}
+
+.event:hover {
+  box-shadow: none;
+}
+
+.event h3 {
+  margin-top: 16px; 
+  margin-bottom: 16px;
+  font-size: 32px;
+}
+
+#map {
+  border-radius: 10px;
+  width: 100%;
+}

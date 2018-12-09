@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Go{% endblock %}
+{% block stylesheet %}go.css{% endblock %}
+{% block content %}
+  <script type="text/javascript" src="/static/reikai.js"></script>
+  <script type="text/javascript">
+    document.querySelector("#go_link").classList.add("selected");
+  </script>
+  <h1>Go</h1>
+  <div id="rules">
+    {% for rule in rules %}
+      <div class="rule">
+        {{ rule|markdown }}
+      </div>
+    {% endfor %}
+    <div id="rules_controls">
+      <a class="hidden" id="rule_prev" onclick="setCurrent(currentRule - 1)"><span class="mdi mdi-arrow-left"></span>Previous</a>
+      <a id="rule_next" onclick="setCurrent(currentRule + 1)">Next <span class="mdi mdi-arrow-right"></span></a>
+    </div>
+  </div>
+  <br></br>
+  <script type="text/javascript">
+    var currentRule = 0;
+    var ruleCount = 0;
+    function setCurrent(rule) {
+      window.scrollTo(0, 0);
+      document.querySelectorAll(".rule")[currentRule].classList.remove("active");
+      if (rule >= ruleCount)
+        rule = ruleCount - 1;
+      else if (rule < 0)
+        rule = 0;
+      else currentRule = rule;
+      document.querySelectorAll(".rule")[currentRule].classList.add("active");
+      if (currentRule != 0)
+        document.getElementById("rule_prev").classList.remove("hidden");
+      else
+        document.getElementById("rule_prev").classList.add("hidden");
+      if (currentRule != ruleCount - 1)
+        document.getElementById("rule_next").classList.remove("hidden");
+      else
+        document.getElementById("rule_next").classList.add("hidden");
+    }
+
+    (function() {
+      ruleCount = document.querySelectorAll(".rule").length;
+      document.querySelectorAll(".rule")[0].classList.add("active");
+    })();
+  </script>
+  <h2>Links</h2>
+  <p>Here is a list of useful and interesting links.</p>
+  <h3>General Go</h3>
+  <ul class="links_list">
+    <li><a href="http://britgo.org/">British Go Association</a> - the ruling body of UK Go</li>
+    <li><a href="http://gobase.org/">Gobase</a> - a comprehensive site with articles and professional results</li>
+  </ul>
+  <h3>Cambridge Go and Other Games</h3>
+  <ul class="links_list">
+    <li><a href="http://www.gen.cam.ac.uk/msocam/links.html">Mind Sports Organisation</a> - links to local games clubs</li>
+    <li><a href="http://www.msocambridge.org.uk">MSO Cambridge</a> - the annual Cambridge Mind Sports Olympiad</li>
+  </ul>
+  <h3>University Go Clubs in the UK</h3>
+  <p>A list of University Go Clubs with which the Cambridge club have semi-frequent contact and games.</p>
+  <ul class="links_list">
+    <li><a href="http://societies.lse.ac.uk/lsego/london.htm">London School of Economics</a></li>
+    <li><a href="http://www.goplayer.org/">Oxford University</a></li>
+    <li><a href="http://www.welinder.se/gosociety/">Imperial College</a></li>
+    <li><a href="http://www.dur.ac.uk/go.club/">Durham University</a></li>
+  </ul>
+  <h3>Go Teaching and Discussion</h3>
+  <ul class="links_list">
+    <li><a href="http://gtl.jeudego.org/">Go Teaching Ladder</a> - a collaborative site offering game reviews</li>
+    <li><a href="http://senseis.xmp.net">Sensei's Library</a> - a very popular and comprehensive Wiki based Go discussion site</li>
+  </ul>
+  <script type="text/javascript">
+    reikai.init();
+  </script>
+{% endblock %}

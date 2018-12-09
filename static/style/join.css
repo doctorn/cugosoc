@@ -1,0 +1,93 @@
+input {
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 5px !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+#subscribe {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#subscribe_button {
+  background-color: #333344;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 15px 10px 15px;
+  transition: box-shadow 200ms, margin-top 200ms, background-color 200ms, margin-bottom 200ms;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+#subscribe_button:hover {
+  background-color: #444455;
+  margin-top: 13px;
+  margin-bottom: 2px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.textfield {
+  width: 450px;
+  margin-top: 15px;
+}
+
+.textfield span {
+  font-size: 24px;
+  color: #333344;
+}
+
+.textfield input {
+  width: calc(100% - 64px);
+  border: none;
+  background-color: #FFFFFF;
+  padding: 10px;
+  border: solid 2px #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 100ms, border 200ms;
+  font-size: 16px;
+}
+
+.textfield input:hover {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.textfield input:focus {
+  border: solid 2px #333344;
+  margin: 0px;
+}
+
+.textfield input.error {
+  border: solid 2px #FF0000;
+}
+
+#digest {
+  visibility: hidden;
+}
+
+#error {
+  color: #FF0000;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 950px) {
+  #subscribe {
+    width: 100%; 
+  }
+
+  .textfield {
+    width: 100%; 
+  }
+
+  #subscribe_button {
+    width: calc(100% - 64px); 
+    margin-left: 4px;
+  }
+}

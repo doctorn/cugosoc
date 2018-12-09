@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Constitution{% endblock %}
+{% block content %}
+<script type="text/javascript">
+  var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var paragraphs = this.responseText.split("\n");
+    paragraphs.shift();
+    paragraphs.pop();
+    for (var paragraph of paragraphs) {
+      if (paragraph !== "") {
+        var node = document.createElement("p"); 
+        node.appendChild(document.createTextNode(paragraph));
+        document.getElementById("constitution").appendChild(node);
+      }
+    }
+  }
+};
+xhttp.open("GET", "/static/constitution.txt", true);
+xhttp.send();
+</script>
+<div id="constitution">
+  <h2>The Cambridge University Go Society Constitution (<a href="/static/constitution.txt">.txt</a>)</h2>
+</div>
+{% endblock %}

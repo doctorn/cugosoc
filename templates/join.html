@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Join{% endblock %}
+{% block stylesheet %}join.css{% endblock %}
+{% block content %}
+<script type="text/javascript">
+  document.querySelector("#join_link").classList.add("selected");
+
+function validateEmail(mail) {
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+}
+
+var submitted = false;
+
+function validateForm(submitting) {
+  var ok = true;
+  var message = "";
+
+  if (submitting) submitted = true;
+
+  if (document.querySelector("#email").value === "" && (submitted || submitting)) {
+    document.querySelector("#email").classList.add("error");
+    ok = false;
+    message += " Please enter an email address.";
+  } else if (!validateEmail(document.querySelector("#email").value) && (submitted || submitting)) {
+    document.querySelector("#email").classList.add("error");
+    ok = false;
+    message += " The email provided is not valid.";
+  } else
+    document.querySelector("#email").classList.remove("error");
+
+
+  if (document.querySelector("#fullname").value === "" && (submitted || submitting)) {
+    document.querySelector("#fullname").classList.add("error");
+    ok = false;
+    message += " Please enter your full name.";
+  } else
+    document.querySelector("#fullname").classList.remove("error");
+
+  document.querySelector("#error").innerHTML = message;
+  return ok;
+}
+
+setInterval(function() { 
+  validateForm(false);
+}, 10);
+
+</script>
+<h1>Join</h1>
+<p>Our society is free for anyone to join! To be officially counted as a member, you must be registerd on our mailing list. To register, enter your email below and hit subscribe! You can unsubscribe at any point by heading <a href="https://lists.cam.ac.uk/mailman/listinfo">here</a> and searching <code>soc-cugos</code>.</p>
+<p>If you need to know when the next meeting is, head to our <a href="/events/">events page</a>!</p>
+<form id="subscribe" method="POST" action="https://lists.cam.ac.uk/mailman/subscribe/soc-cugos" onsubmit="return validateForm(true)">
+  <div class="textfield">
+    <span class="mdi mdi-account"></span>
+    <input id="fullname" type="Text" name="fullname" value="" placeholder="Name">
+  </div>
+  <div class="textfield">
+    <span class="mdi mdi-email"></span>
+    <input id="email" type="Text" name="email" value="" placeholder="Email">
+  </div>
+  <input id="digest" type="radio" name="digest" value="0" checked>
+  <input id="subscribe_button" type="Submit" name="email-button" value="Subscribe">
+  <p id="error"></p>
+</form>
+<h2 id="privacy">Privacy Notice</h2>
+<p>Our mailing list is managed by the <a href="http://lists.cam.ac.uk/">University of Cambridge University Information Services' mailing list service</a>. For more information regarding their privacy policy, visit <a href="https://www.uis.cam.ac.uk/privacy-notice">here</a>.</p> 
+{% endblock %}

@@ -1,0 +1,69 @@
+{
+  "size": 9,
+  "start": {
+    "x": 0,
+    "y": 5
+  },
+  "end": {
+    "x": 8,
+    "y": 8
+  },
+  "stones": [
+    {
+      "x": 0,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "black": true
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "black": false
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "black": false
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "black": false
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "black": false
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "black": true,
+      "label": "1"
+    }
+  ]
+}

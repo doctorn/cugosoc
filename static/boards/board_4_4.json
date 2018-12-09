@@ -1,0 +1,322 @@
+{
+  "size": 9,
+  "start": {
+    "x": 0,
+    "y": 0
+  },
+  "end": {
+    "x": 8,
+    "y": 8
+  },
+  "stones": [
+    {
+      "x": 0,
+      "y": 0,
+      "black": true,
+      "label": "1"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "black": false
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "black": false
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "black": true,
+      "label": "2"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "black": true
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "black": false
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "black": false
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "black": true
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "black": true
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "black": true
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "black": true
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "black": true
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "black": true
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "black": true
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "black": true
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "black": true
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "black": true
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "black": false
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "black": false
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "black": false
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "black": false
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "black": false
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "black": false
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "black": true,
+      "label": "3"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "black": false
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "black": true
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "black": false
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "black": true
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "black": false
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "black": false
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "black": true
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "black": false
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "black": true
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "black": false
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "black": true,
+      "label": "4"
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "black": false
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "black": false
+    }
+  ]
+}

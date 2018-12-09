@@ -1,0 +1,18 @@
+{% macro add_event(event) -%}
+  <div class="event">
+    <h3>
+      {{ event.name }}
+      {% if event.tournament %}
+        <span class="mdi mdi-trophy"></span>
+      {% endif %}
+    </h3>
+    <p><span class="mdi mdi-map-marker"></span>{{ event.location.name }}</p>
+    <a href="https://www.google.com/maps/search/?api=1&query={{ event.location.address }}"><span class="mdi mdi-map"></span>{{ event.location.address }}</a>
+    <p><span class="mdi mdi-calendar-blank"></span>{{ event.date }}</p>
+    <p><span class="mdi mdi-clock-outline"></span>from {{ event.start }} until {{ event.end }}</p>
+    {% if event.facebook_link != "" %}
+      <a href="{{ event.facebook_link }}"><span class="mdi mdi-facebook-box"></span>View on Facebook</a>
+    {% endif %}
+    <a class="expand" href="/event/{{ event.id }}"><span class="mdi mdi-open-in-new"></span></a>
+  </div>
+{%- endmacro %}

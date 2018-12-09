@@ -1,0 +1,30 @@
+{% import "macros.jinja" as macros %}
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+  <script type="text/javascript">
+    document.querySelector("#events_link").classList.add("selected");
+  </script>
+  <h1>Events</h1>
+  <p>Listed here are the next three upcoming and last three archived events. For more information about any specific event, click on it!</p>
+  <h2>Upcoming</h2>
+  <h3><a href="/upcoming/"><span class="mdi mdi-calendar"></span>View all upcoming events</a></h3>
+  {% if (events is defined) and events %}
+    {% for event in events %}
+      {{ macros.add_event(event) }}
+    {% endfor %}
+  {% else %}
+    <p>No events to show!</p>
+    <p>Check back here soon for new upcoming events!</p>
+  {% endif %}
+  <h2>Archive</h2>
+  <h3><a href="/past/"><span class="mdi mdi-archive"></span>View all archived events</a></h3>
+  {% if (archive is defined) and archive %}
+    {% for event in archive %}
+      {{ macros.add_event(event) }}
+    {% endfor %}
+  {% else %}
+    <p>No events to show!</p>
+    <p>Our events archive will be updated in the future...</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>CUGOSOC - {% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/style/base.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/style/{% block stylesheet %}{% endblock %}"/>
+  <script type="text/javascript">
+    function toggleTray() {
+      var tray = document.getElementById("navtray");
+      if (tray.classList.contains("active"))
+        tray.classList.remove("active");
+      else tray.classList.add("active");
+    }
+  </script>
+  </head>
+  <body>
+    <div id="navbar" class="wide">
+      <div class="logo banner">
+        <img alt="CUGOSOC Homepage" src="/static/img/logo.svg"/>
+        <a href="/"></a>
+      </div>
+      <a id="home_link" class="navlink" href="/"><span class="mdi mdi-home"></span>Home</a>
+      <a id="about_link" class="navlink" href="/about/"><span class="mdi mdi-information"></span>About</a>
+      <a id="go_link" class="navlink" href="/go/"><span class="mdi mdi-checkbox-multiple-blank-circle-outline"></span>Go</a>
+      <a id="events_link" class="navlink" href="/events/"><span class="mdi mdi-calendar"></span>Events</a>
+      <a id="archive_link" class="navlink" href="/archive/"><span class="mdi mdi-archive"></span>Archive</a>
+      <a id="join_link" class="navlink" href="/join/"><span class="mdi mdi-account-group"></span>Join</a>
+      <a id="dropdown" onclick="toggleTray()"><span class="mdi mdi-menu"></span></a>
+    </div>
+    <div id="navtray">
+        <a id="tray_top" class="navlink" href="/"><span class="mdi mdi-home"></span>Home</a>
+        <a class="navlink" href="/about/"><span class="mdi mdi-information"></span>About</a>
+        <a class="navlink" href="/go/"><span class="mdi mdi-checkbox-multiple-blank-circle-outline"></span>Go</a>
+        <a class="navlink" href="/events/"><span class="mdi mdi-calendar"></span>Events</a>
+        <a class="navlink" href="/archive/"><span class="mdi mdi-archive"></span>Archive</a>
+        <a class="navlink" href="/join/"><span class="mdi mdi-account-group"></span>Join</a>
+    </div>
+    <div class="spaced" id="content">
+      {% block content %}{% endblock %}
+    </div>
+    <div class="wide" id="footer">
+      <div class="logo">
+        <img alt="CUGOSOC Homepage" src="/static/img/logo_dark.svg"/>
+        <a href="/"></a>
+      </div>
+      <div>
+        <ul>
+          Site
+          <li><a href="/"><span class="mdi mdi-home"></span>Home</a></li>
+          <li><a href="/about/"><span class="mdi mdi-information"></span>About</a></li>
+          <li><a href="/go/"><span class="mdi mdi-checkbox-multiple-blank-circle-outline"></span>Go</a></li>
+          <li><a href="/events/"><span class="mdi mdi-calendar"></span>Events</a></li>
+          <li><a href="/archive/"><span class="mdi mdi-archive"></span>Archive</a></li>
+          <li><a href="/join/"><span class="mdi mdi-account-group"></span>Join</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          Information
+          <li><a href="/constitution/"><span class="mdi mdi-bank"></span>Constitution</a></li>
+          <li><a href="/about/#committee"><span class="mdi mdi-email"></span>Contact</a></li>
+          <li><a href="/join/#privacy"><span class="mdi mdi-lock-question"></span>Privacy Notice</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          Other
+          <li><a href="https://facebook.com/cugosoc/"><span class="mdi mdi-facebook-box"></span>Facebook</a></li>
+          <li><a href="http://github.com/doctorn/cugosoc/"><span class="mdi mdi-github-box"></span>GitHub</a></li>
+        </ul>
+      </div>
+      <div id="notice">
+        <p>License GPL v2.0</p>
+        <p>Copyright &copy; 2018 Cambridge University Go Society</p>
+      </div>
+    </div>
+  </body>
+</html>

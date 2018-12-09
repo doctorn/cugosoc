@@ -1,0 +1,47 @@
+#photo_archive {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.archive_photo {
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+  max-height: 100px;
+  height: auto;
+  border: solid 5px #FFFFFF;
+  border-radius: 5px;
+  transition: box-shadow 200ms, max-height 0ms;
+  margin: 5px;
+  order: 10;
+  cursor: pointer;
+}
+
+.archive_photo.zoom {
+  max-height: 400px;
+  order: 0;
+  transition: max-height 1000ms;
+  cursor: default;
+}
+
+#archive_spacer {
+  order: 1;
+  width: 100%;
+}
+
+.archive_photo:hover {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+  transform: rotate(0);
+}
+
+@media screen and (max-width: 950px) {
+  .archive_photo {
+    max-height: 75px;
+  }
+
+  .archive_photo.zoom {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,7 @@
+__pycache__/
+__pycache__/*
+uploads/
+data.db
+maps_key
+nohup.out
+static/reikai.js

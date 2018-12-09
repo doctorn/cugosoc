@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Archive{% endblock %}
+{% block stylesheet %}archive.css{% endblock %}
+{% block content %}
+  <script type="text/javascript">
+    document.querySelector("#archive_link").classList.add("selected");
+
+    function zoom(photo) {
+      document.querySelectorAll(".archive_photo").forEach(function(e) {
+        e.classList.remove("zoom");
+      });
+      photo.classList.add("zoom");
+    }
+  </script>
+  <h1>Archive</h1>
+  <p>The Cambridge University Go Society has a strong history, the last 30 years of which has been kept intact. Compiled here are the results of tournaments run by the club dating back  to the early 1990s. The club also used to run a newsletter called 'Tesuji', for which a large number of issues are still available here as PDFs.  Additionally, a number of photos have been preserved, all of which are also kept here in our photo archive.</p>
+  <h2>Tournament Results</h2>
+  <p>Under construction...</p>
+  <h2>Photos</h2>
+  <p>Click on a photo to enlarge it!</p>
+  <div id="photo_archive">
+    <div id="archive_spacer"></div>
+    {% for photo in photos %}
+      <img class="archive_photo" src="/static/img/archive/{{ photo }}"/>
+    {% endfor %}
+  </div>
+  <script type="text/javascript"> 
+    (function() {
+      document.querySelectorAll(".archive_photo").forEach(function(e) {
+        e.addEventListener('click', function() {
+          zoom(e);
+        });
+      });
+      document.querySelectorAll(".archive_photo")[0].classList.add("zoom");
+    })();
+  </script>
+  <h2>Tesuji</h2>
+  <p>Tesuji stopped in 2006 and had various editors over the years. At present we have back-issues from 2003 up until 2006. To download an issue, simply click the link.</p>
+  {% for pdf in tesuji %}
+    <p><a href="/static/tesuji/{{ pdf }}"><span class="mdi mdi-download"></span>Download {{ pdf }}</a></p>
+  {% endfor %}
+{% endblock %}

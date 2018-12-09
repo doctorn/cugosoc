@@ -1,0 +1,87 @@
+#gallery {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  margin-left: calc(-50vw + 450px);
+  margin-right: calc(-50vw + 450px);
+  margin-top: -40px;
+  z-index: 0;
+}
+
+#gallery_shadow {
+  box-shadow: inset 0px -5px 5px 0px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+#gallery img {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  z-index: -10;
+  opacity: 0;
+  transition: opacity 800ms;
+  pointer-events: none;
+}
+
+#gallery img.active {
+  opacity: 1;
+}
+
+#gallery_controls {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  bottom: 10px;
+}
+
+#gallery_controls div {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+  margin: 3px;
+  border: 2px solid #FDFDFD;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+#gallery_controls div:hover {
+  background-color: rgba(20, 20, 20, 0.5);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  width: 17px;
+  height: 17px;
+  margin: 2px;
+  border: 2px solid #FFFFFF;
+}
+
+#gallery_controls div:active {
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  width: 13px;
+  height: 13px;
+  margin: 4px;
+}
+
+#gallery_controls div.active {
+  background-color: #FDFDFD;
+}
+
+#gallery_controls div.active:hover {
+  background-color: #FFFFFF;
+}
+
+@media screen and (max-width: 950px) {
+  #gallery {
+    margin-top: -60px;
+    margin-left: -20px; 
+    margin-right: -20px;
+    width: 100vw;
+  }     
+}

@@ -1,0 +1,46 @@
+#rules {
+  height: auto;
+  position: relative;
+}
+
+.rule {
+  display: none;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  transition: opacity 800ms;
+}
+
+.rule.active {
+  opacity: 1;
+  display: block;
+}
+
+#rule_controls {
+  width: 100%;
+  height: 40px;
+  margin-top: 20px;
+}
+
+#rules_controls a {
+  cursor: pointer;
+  transition: opacity 300ms;
+}
+
+#rules_controls a.hidden {
+  opacity: 0;
+}
+
+#rule_next {
+  float: right;
+}
+
+#rule_prev {
+  float: left;
+}
+
+.reikai_board {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px;
+}

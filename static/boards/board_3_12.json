@@ -1,0 +1,94 @@
+{
+  "size": 9,
+  "start": {
+    "x": 0, 
+    "y": 0
+  },
+  "end": {
+    "x": 8, 
+    "y": 8
+  },
+  "stones": [
+    {
+      "x": 1,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "black": true
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "black": true
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "black": true
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "black": true,
+      "label": "1"
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "black": false
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "black": false
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "black": false
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "black": false
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "black": false
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "black": false
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "black": false
+    }
+  ]
+}
