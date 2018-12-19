@@ -8,6 +8,8 @@ The tournament is open to all, and players entering for the first time will be m
 
 There are prizes for the overall winner and all players on three wins. There is a separate room for game analysis, and there might be stronger players available for teaching in between games.
 
+There is a 13x13 _novices' tournament_ for complete beginners run in parallel with the main tournament. This has an entry fee of £2, starts at 14:00 and aims for prize giving at 16:45. To enter or for any further enquiries regarding the novices' tournament, please email Paul Smith ([paul361smith@gmail.com](mailto:paul361smith@gmail.com)).
+
 ##Tournament schedule
 | Time          | Event        |
 | ------------- | ------------ |
