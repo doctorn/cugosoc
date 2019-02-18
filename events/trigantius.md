@@ -100,7 +100,7 @@ The venue is about 1¼ mile north-west of the Cambridge rail station. You may ca
 The nearest car park is the Grand Arcade, but it is probably best to use Park & Ride.
 
 ## Refreshments and Lunch
-###Refreshments
+### Refreshments
 The University Social Club will be providing light refreshments during the tournament.
 
 ### Lunch
