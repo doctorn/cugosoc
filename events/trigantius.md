@@ -81,11 +81,11 @@ When done, please send your email to [Geoff Kaniuk](geoff@kaniuk.co.uk). It help
 Players already entered are found in the current [entries list](http://www.britgo.org/tournams/trigantius/tour-entries.html). If you need to make any changes to your entry, please email Geoff. Early entry is appreciated so that we know how many boards and clocks are to be supplied by the British Go association. 
 
 ## Novices
-There is a 13x13 _novices' tournament_ for complete beginners run in parallel with the main tournament. Anyone of grade 20-kyu or less is welcome to participate. 
+There will be a 13x13 _novices' tournament_, for anyone of grade 20-kyu or weaker, run in parallel with the main tournament.
 
-The novices' tournament has an entry fee of £2, starts at 14:00 and aims for prize giving at 16:45. If there are any participants around in the morning, there will also be opportunity for teaching and friendly games.
+This has an entry fee of £2, starts at 14:00, and aims for prize giving at 16:45. If there are any participants around in the morning, there will also be opportunity for teaching and friendly games.
 
-Please use the separate [entry form](http://www.britgo.org/tournams/novices/novices-form.html) to enter. There is also a separate [entries list](http://www.britgo.org/tournams/novices/tour-entries.html) for the novice s' tournament.
+Please use this separate [entry form](http://www.britgo.org/tournams/novices/novices-form.html) to enter. There is also a separate [entries list](http://www.britgo.org/tournams/novices/tour-entries.html) for the novice s' tournament.
 
 For any further enquiries regarding the novices' tournament, please email [Paul Smith](mailto:paul361smith@gmail.com).
 
