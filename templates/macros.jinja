@@ -6,8 +6,8 @@
         <span class="mdi mdi-trophy"></span>
       {% endif %}
     </h3>
-    <p><span class="mdi mdi-map-marker"></span>{{ event.location.name }}</p>
-    <a href="https://www.google.com/maps/search/?api=1&query={{ event.location.address }}"><span class="mdi mdi-map"></span>{{ event.location.address }}</a>
+    <p><span class="mdi mdi-map-marker"></span>{{ event.location_data.name }}</p>
+    <a href="https://www.google.com/maps/search/?api=1&query={{ event.location_data.address }}"><span class="mdi mdi-map"></span>{{ event.location_data.address }}</a>
     <p><span class="mdi mdi-calendar-blank"></span>{{ event.date.strftime('%d/%m/%Y') }}</p>
     <p><span class="mdi mdi-clock-outline"></span>from {{ event.start.strftime('%H:%M') }} until {{ event.end.strftime('%H:%M') }}</p>
     {% if event.facebook_link %}

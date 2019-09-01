@@ -14,48 +14,14 @@
 <h2>Committee</h2>
 <p>Our committee for the 2019-2020 academic year is listed below. Feel free to contact any of the committee if you have any questions or queries.</p>
 <div id="committee">
-  <div class="member">
-    <p class="name">Nathan Corbyn</p> 
-    <p class="role">President</p> 
-    <a class="contact" href="mailto:nc513@cam.ac.uk"><span class="mdi mdi-email"></span>nc513@cam.ac.uk</a>
-  </div>
-  <div class="member">
-    <p class="name">Tunyang Xie</p> 
-    <p class="role">Vice-President</p> 
-    <a class="contact" href="mailto:tx219@cam.ac.uk"><span class="mdi mdi-email"></span>tx219@cam.ac.uk</a>
-  </div>
-  <div class="member">
-    <p class="name">Jon Puksta</p> 
-    <p class="role">Secretary</p> 
-    <a class="contact" href="mailto:jp777@cam.ac.uk"><span class="mdi mdi-email"></span>jp777@cam.ac.uk</a>
-  </div>
-  <div class="member">
-    <p class="name">Paul Russell</p>
-    <p class="role">Senior Treasurer</p>
-    <a class="contact" href="mailto:par31@dpmms.cam.ac.uk"><span class="mdi mdi-email"></span>par31@dpmms.cam.ac.uk</a>
-  </div>
-  <div class="member">
-    <p class="name">Lu Chen</p> 
-    <p class="role">Junior Treasurer</p> 
-    <a class="contact" href="mailto:lc736@cam.ac.uk"><span class="mdi mdi-email"></span>lc736@cam.ac.uk</a>
-  </div>
-  <div class="member">
-    <p class="name">Zherui Xu</p> 
-    <p class="role">Coach</p> 
-    <a class="contact" href="mailto:zx255@cam.ac.uk"><span class="mdi mdi-email"></span>zx255@cam.ac.uk</a>
-  </div>
-  <div class="member">
-    <p class="name">Paul Smith</p>
-    <p class="role">Junior Club Rep</p>
-    <a class="contact" href="mailto:paul361smith@gmail.com"><span class="mdi mdi-email"></span>paul361smith@gmail.com</a>
-  </div>
-  <div class="member">
-    <p class="name">Geoff Kaniuk</p> 
-    <p class="role">Tournaments Organiser</p> 
-  </div>
-  <div class="member">
-    <p class="name">Bruno Poltronieri</p> 
-    <p class="role">Training Coordinator</p> 
-  </div>
+  {% for commitee_member in committee %}
+    <div class="member">
+      <p class="name">{{ commitee_member.name }}</p>
+      <p class="role">{{ commitee_member.role }}</p>
+      {% if commitee_member.email %}
+        <a class="contact" href="mailto:{{ commitee_member.email }}"><span class="mdi mdi-email"></span>{{ commitee_member.email }}</a>
+      {% endif %}
+    </div>
+  {% endfor %}
 </div>
 {% endblock %}
