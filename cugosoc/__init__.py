@@ -2,27 +2,30 @@ from flask import Flask, render_template, Markup, redirect
 from flaskext.markdown import Markdown
 
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib import sqla
 
 from flask_sqlalchemy import SQLAlchemy
 
+from flask_basicauth import BasicAuth
+
+# from flask_sslify import SSLify
+
 import markdown
 from markdown.extensions import tables, fenced_code
+
+from werkzeug import Response
+from werkzeug.exceptions import HTTPException
 
 from datetime import date, timedelta
 
 import os
 
-with open("maps_key") as key_file:
-    maps_key = key_file.readline()
-
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 app.jinja_env.auto_reload = True
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_pyfile('config.py')
+
+# sslify = SSLify(app)
+
 db = SQLAlchemy(app)
 
 class Location(db.Model):
@@ -60,6 +63,25 @@ md = Markdown(app)
 md.register_extension(tables.TableExtension)
 md.register_extension(fenced_code.FencedCodeExtension)
 
+basic_auth = BasicAuth(app)
+
+class AuthException(HTTPException):
+    def __init__(self, message):
+        super().__init__(message, Response(
+            "You could not be authenticated. Please refresh the page.", 401,
+            {'WWW-Authenticate': 'Basic realm="Login Required"'}
+        ))
+
+class ModelView(sqla.ModelView):
+    def is_accessible(self):
+        if not basic_auth.authenticate():
+            raise AuthException('Not authenticated.')
+        else:
+            return True
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(basic_auth.challenge())
+
 admin = Admin(app, name='CUGOSOC', template_mode='bootstrap3')
 admin.add_view(ModelView(Event, db.session, name="Events"))
 admin.add_view(ModelView(Location, db.session, name="Locations"))
@@ -69,7 +91,7 @@ admin.add_view(ModelView(Committee, db.session))
 def index():
     return (render_template(
         'index.html',
-        gallery_photos=[file for file in os.listdir("./static/img/gallery/")],
+        gallery_photos=[file for file in os.listdir("./cugosoc/static/img/gallery/")],
         events=get_weeks_events()
     ))
 
@@ -131,12 +153,12 @@ def event(index):
                 'event.html',
                 event=event,
                 desc=desc,
-                maps_key=maps_key
+                maps_key=app["MAPS_KEY"]
             ))
     elif event is not None:
         return (render_template(
             'event.html',
-            event=event, maps_key=maps_key
+            event=event, maps_key=app["MAPS_KEY"]
         ))
     else:
         return page_not_found(None)
@@ -147,16 +169,20 @@ def membership():
 
 @app.route("/archive/")
 def archive():
-    tesuji = [file for file in os.listdir("./static/tesuji/")]
+    tesuji = [file for file in os.listdir("./cugosoc/static/tesuji/")]
     tesuji.sort()
     return (render_template('archive.html',
         tesuji=tesuji,
-        photos=[file for file in os.listdir("./static/img/archive/")]
+        photos=[file for file in os.listdir("./cugosoc/static/img/archive/")]
     ))
 
 @app.route("/constitution/")
 def constitution():
     return render_template('constitution.html')
+
+@app.route('/admin/logout')
+def logout():
+    raise AuthException("Logged out.")
 
 @app.errorhandler(404)
 def page_not_found(e):

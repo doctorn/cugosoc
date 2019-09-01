@@ -1,0 +1,7 @@
+Flask
+flaskext
+Flask-Admin
+Flask-SQLAlchemy
+Flask-BasicAuth
+Markdown
+werkzeug

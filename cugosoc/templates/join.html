@@ -5,45 +5,44 @@
 <script type="text/javascript">
   document.querySelector("#join_link").classList.add("selected");
 
-function validateEmail(mail) {
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
-}
+  function validateEmail(mail) {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+  }
 
-var submitted = false;
+  var submitted = false;
 
-function validateForm(submitting) {
-  var ok = true;
-  var message = "";
+  function validateForm(submitting) {
+    var ok = true;
+    var message = "";
 
-  if (submitting) submitted = true;
+    if (submitting) submitted = true;
 
-  if (document.querySelector("#email").value === "" && (submitted || submitting)) {
-    document.querySelector("#email").classList.add("error");
-    ok = false;
-    message += " Please enter an email address.";
-  } else if (!validateEmail(document.querySelector("#email").value) && (submitted || submitting)) {
-    document.querySelector("#email").classList.add("error");
-    ok = false;
-    message += " The email provided is not valid.";
-  } else
-    document.querySelector("#email").classList.remove("error");
+    if (document.querySelector("#email").value === "" && (submitted || submitting)) {
+      document.querySelector("#email").classList.add("error");
+      ok = false;
+      message += " Please enter an email address.";
+    } else if (!validateEmail(document.querySelector("#email").value) && (submitted || submitting)) {
+      document.querySelector("#email").classList.add("error");
+      ok = false;
+      message += " The email provided is not valid.";
+    } else
+      document.querySelector("#email").classList.remove("error");
 
 
-  if (document.querySelector("#fullname").value === "" && (submitted || submitting)) {
-    document.querySelector("#fullname").classList.add("error");
-    ok = false;
-    message += " Please enter your full name.";
-  } else
-    document.querySelector("#fullname").classList.remove("error");
+    if (document.querySelector("#fullname").value === "" && (submitted || submitting)) {
+      document.querySelector("#fullname").classList.add("error");
+      ok = false;
+      message += " Please enter your full name.";
+    } else
+      document.querySelector("#fullname").classList.remove("error");
 
-  document.querySelector("#error").innerHTML = message;
-  return ok;
-}
+    document.querySelector("#error").innerHTML = message;
+    return ok;
+  }
 
-setInterval(function() { 
-  validateForm(false);
-}, 10);
-
+  setInterval(function() { 
+    validateForm(false);
+  }, 10);
 </script>
 <h1>Join</h1>
 <p>Our society is free for anyone to join! To be officially counted as a member, you must be registerd on our mailing list. To register, enter your email below and hit subscribe! You can unsubscribe at any point by heading <a href="https://lists.cam.ac.uk/mailman/listinfo">here</a> and searching <code>soc-cugos</code>.</p>
