@@ -109,10 +109,10 @@ def about():
 @app.route("/go/")
 def go():
     rules = []
-    rule_files = os.listdir("./rules")
+    rule_files = os.listdir("./cugosoc/rules")
     rule_files.sort()
     for current in rule_files:
-        with open('rules/' + current, 'r') as rules_file:
+        with open('./cugosoc/rules/' + current, 'r') as rules_file:
             rules.append(rules_file.read())
     return render_template('go.html', rules=rules)
 
@@ -146,19 +146,19 @@ def legacy():
 @app.route("/event/<index>")
 def event(index):
     event = get_event(index)
-    if event is not None and event.description is not None:
-        with open('events/' + event.description, 'r') as description_file:
+    if event is not None and event.description is not None and event.description != "":
+        with open('./cugosoc/events/' + event.description, 'r') as description_file:
             desc = description_file.read()
             return (render_template(
                 'event.html',
                 event=event,
                 desc=desc,
-                maps_key=app["MAPS_KEY"]
+                maps_key=app.config["MAPS_KEY"]
             ))
     elif event is not None:
         return (render_template(
             'event.html',
-            event=event, maps_key=app["MAPS_KEY"]
+            event=event, maps_key=app.config["MAPS_KEY"]
         ))
     else:
         return page_not_found(None)
@@ -190,7 +190,7 @@ def page_not_found(e):
 
 def get_event(index):
     return (
-        session.query(Event)
+        Event.query
             .filter(index == Event.id)
             .first()
     )

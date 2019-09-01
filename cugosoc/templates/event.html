@@ -19,7 +19,7 @@
       {{ desc|markdown }}
     {% endif %}
     <br>
-    <iframe id="map" width="900" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{ event.location.address }}&key={{ maps_key }}" allowfullscreen></iframe>
+    <iframe id="map" width="900" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q={{ event.location_data.address }}&key={{ maps_key }}" allowfullscreen></iframe>
   {% else %}
     <h1>Oops... Event not found!</h1>
   {% endif %}
