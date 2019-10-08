@@ -8,8 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_basicauth import BasicAuth
 
-# from flask_sslify import SSLify
-
 import markdown
 from markdown.extensions import tables, fenced_code
 
@@ -23,8 +21,6 @@ import os
 app = Flask(__name__, instance_relative_config=True)
 app.jinja_env.auto_reload = True
 app.config.from_pyfile('config.py')
-
-# sslify = SSLify(app)
 
 db = SQLAlchemy(app)
 
