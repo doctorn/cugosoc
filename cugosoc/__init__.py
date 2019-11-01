@@ -10,6 +10,8 @@ from flask_basicauth import BasicAuth
 
 from flask_mail import Mail, Message
 
+from flask_migrate import Migrate
+
 import markdown
 from markdown.extensions import tables, fenced_code
 
@@ -30,6 +32,7 @@ app.config.from_pyfile('config.py')
 
 mail = Mail(app)
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class Location(db.Model):
     __tablename__ = "locations"
@@ -274,10 +277,10 @@ def confirm(token):
         if request.winner_confirmed and request.loser_confirmed:
             winner = get_player(request.winner_id)
             loser = get_player(request.loser_id)
-            winner.rank += 1
-            loser.rank -= 1
             winner.played += 1
             loser.played += 1
+            winner.rank += 1
+            loser.rank -= 1
             if loser.rank < 0:
                 loser.rank = 0
 
