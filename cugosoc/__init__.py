@@ -70,6 +70,7 @@ class LadderParticipant(db.Model):
     rank = db.Column(db.Integer, nullable=False, default=0)
     initial = db.Column(db.Integer, nullable=False, default=0)
     visible = db.Column(db.Boolean, nullable=False, default=False)
+    played = db.Column(db.Integer, nullable=False, default=0)
 
     def format_rank(self, modifier=0):
         rank = self.rank + modifier
@@ -275,6 +276,8 @@ def confirm(token):
             loser = get_player(request.loser_id)
             winner.rank += 1
             loser.rank -= 1
+            winner.played += 1
+            loser.played += 1
             if loser.rank < 0:
                 loser.rank = 0
 
