@@ -93,7 +93,7 @@ ul li:before {
   margin-bottom: 0;
   margin-left: 5px;
   margin-right: 5px;
-  padding: 15px 20px 13px 20px;
+  padding: 15px 15px 13px 15px;
   border-bottom: solid 2px #FFFFFF;
   transition: border-bottom 200ms;
 }
@@ -121,7 +121,7 @@ ul li:before {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
-  margin-right: 20px;
+  margin-right: 10px;
   background-color: #333344;
 }
 
@@ -236,6 +236,57 @@ span.mdi {
   font-size: 30px;
 }
 
+input {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  -webkit-border-radius: 5px !important;
+  border-radius: 5px !important;
+}
+
+.button {
+  background-color: #333344;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 15px 10px 15px;
+  transition: box-shadow 200ms, margin-top 200ms, background-color 200ms, transform 200ms;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  background-color: #444455;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+select {
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 8px 13px 8px 13px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  transition: box-shadow 200ms, border 200ms;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 2px white;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: url("https://fonts.gstatic.com/s/i/materialicons/keyboard_arrow_down/v1/24px.svg");
+  background-repeat: no-repeat, repeat;
+  background-position: right .4em top 50%, 0 0;
+  background-size: 2em auto, 100%;
+}
+
+select:hover {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+  border: solid 2px #333344;
+}
+
 table {
   border-collapse: collapse;
 }
@@ -247,7 +298,12 @@ td, th {
   min-width: 60px;
 }
 
-@media screen and (max-width: 950px) {
+.error {
+  color: #FF0000;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 960px) {
   .spaced {
     padding-left: 20px;
     padding-right: 20px; 

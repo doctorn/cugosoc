@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Markup, redirect
+from flask import Flask, render_template, Markup, redirect, jsonify
 from flaskext.markdown import Markdown
 
 from flask_admin import Admin
@@ -8,6 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_basicauth import BasicAuth
 
+from flask_mail import Mail, Message
+
 import markdown
 from markdown.extensions import tables, fenced_code
 
@@ -16,12 +18,17 @@ from werkzeug.exceptions import HTTPException
 
 from datetime import date, timedelta
 
+from secrets import token_urlsafe
+
+import cugosoc.grading_utils
+
 import os
 
 app = Flask(__name__, instance_relative_config=True)
 app.jinja_env.auto_reload = True
 app.config.from_pyfile('config.py')
 
+mail = Mail(app)
 db = SQLAlchemy(app)
 
 class Location(db.Model):
@@ -55,6 +62,43 @@ class Committee(db.Model):
     index = db.Column(db.Integer, nullable=False, default=0)
     active = db.Column(db.Boolean, nullable=False)
 
+class LadderParticipant(db.Model):
+    __tablename__ = "ladder_participants"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), unique=True)
+    rank = db.Column(db.Integer, nullable=False, default=0)
+    initial = db.Column(db.Integer, nullable=False, default=0)
+    visible = db.Column(db.Boolean, nullable=False, default=False)
+
+    def format_rank(self, modifier=0):
+        rank = self.rank + modifier
+        if rank < 0:
+            rank = 0
+        if grading_utils.max_stars(rank) != 0:
+            return "%s [%d/%d stars]" % (
+                grading_utils.grade(rank),
+                grading_utils.stars(rank),
+                grading_utils.max_stars(rank)
+            )
+        else:
+            return grading_utils.grade(rank)
+
+class LadderResultRequest(db.Model):
+    __tablename__ = "ladder_result_requests"
+    winner_token = db.Column(db.String(64), primary_key=True, nullable=False)
+    loser_token = db.Column(db.String(64), primary_key=True, nullable=False)
+    winner_id = db.Column(db.Integer, db.ForeignKey(LadderParticipant.id), nullable=False)
+    loser_id = db.Column(db.Integer, db.ForeignKey(LadderParticipant.id), nullable=False)
+    winner_confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    loser_confirmed = db.Column(db.Boolean, nullable=False, default=False)
+
+    def __init__(self, winner_id, loser_id):
+        self.winner_id = winner_id
+        self.loser_id = loser_id
+        self.winner_token = token_urlsafe(32)
+        self.loser_token = token_urlsafe(32)
+
 md = Markdown(app)
 md.register_extension(tables.TableExtension)
 md.register_extension(fenced_code.FencedCodeExtension)
@@ -82,6 +126,8 @@ admin = Admin(app, name='CUGOSOC', template_mode='bootstrap3')
 admin.add_view(ModelView(Event, db.session, name="Events"))
 admin.add_view(ModelView(Location, db.session, name="Locations"))
 admin.add_view(ModelView(Committee, db.session))
+admin.add_view(ModelView(LadderParticipant, db.session, name="Ladder"))
+admin.add_view(ModelView(LadderResultRequest, db.session, name="Requests"))
 
 @app.route("/")
 def index():
@@ -159,6 +205,10 @@ def event(index):
     else:
         return page_not_found(None)
 
+@app.route("/ladder/")
+def ladder():
+    return render_template('ladder.html', ladder=get_ladder())
+
 @app.route("/join/")
 def membership():
     return render_template('join.html')
@@ -176,6 +226,61 @@ def archive():
 def constitution():
     return render_template('constitution.html')
 
+@app.route("/submit/<winner_id>/<loser_id>")
+def submit(winner_id, loser_id):
+    if winner_id == loser_id:
+        return jsonify({
+            "status": "error",
+            "error": "Winner and loser cannot be the same person",
+        })
+    else:
+        winner = get_player(winner_id)
+        loser = get_player(loser_id)
+        if winner is None or loser is None:
+            return jsonify({
+                "status": "error",
+                "error": "An internal error occured, please try again",
+            })
+        else:
+            request = LadderResultRequest(winner_id, loser_id)
+            db.session.add(request)
+            db.session.commit()
+            send_ladder_emails(winner, loser, request.winner_token, request.loser_token)
+            return jsonify({ "status": "ok" })
+        
+
+@app.route('/confirm/<token>')
+def confirm(token):
+    request = (
+        LadderResultRequest.query
+            .filter(
+                db.or_(
+                    token == LadderResultRequest.winner_token,
+                    token == LadderResultRequest.loser_token,
+                )
+            )
+            .first()
+    )
+    if request is not None:
+        print(token)
+        print(request.winner_token)
+        print(request.loser_token)
+        if request.winner_token == token:
+            request.winner_confirmed = True
+        elif request.loser_token == token:
+            request.loser_confirmed = True
+        
+        if request.winner_confirmed and request.loser_confirmed:
+            winner = get_player(request.winner_id)
+            loser = get_player(request.loser_id)
+            winner.rank += 1
+            loser.rank -= 1
+            if loser.rank < 0:
+                loser.rank = 0
+
+    db.session.commit()
+    return redirect("/ladder/")
+
 @app.route('/admin/logout')
 def logout():
     raise AuthException("Logged out.")
@@ -183,6 +288,42 @@ def logout():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+def send_ladder_emails(winner, loser, winner_token, loser_token):
+    subject = "[CUGOSOC] %s vs %s result confirmation" % (winner.name, loser.name)
+    msg = Message(
+        html=render_template(
+            'confirmation.html',
+            name=winner.name,
+            opponent_name=loser.name,
+            before=winner.format_rank(),
+            after=winner.format_rank(modifier=1),
+            token=winner_token,
+        ),
+        subject=subject,
+        recipients=[winner.email]
+    )
+    mail.send(msg)
+    msg = Message(
+        html=render_template(
+            'confirmation.html',
+            name=loser.name,
+            opponent_name=winner.name,
+            before=loser.format_rank(),
+            after=loser.format_rank(modifier=-1),
+            token=loser_token,
+        ),
+        subject=subject,
+        recipients=[loser.email]
+    )
+    mail.send(msg)
+
+def get_player(id):
+    return (
+        LadderParticipant.query
+            .filter(id == LadderParticipant.id)
+            .first()
+    )
 
 def get_event(index):
     return (
@@ -221,3 +362,22 @@ def get_past_events(limit=0):
     if limit != 0:
         query = query.limit(limit)
     return query
+
+def get_ladder():
+    query = (
+        LadderParticipant.query
+            .order_by(db.desc(LadderParticipant.rank))
+    )
+    return list(
+        map(lambda record: {
+                "id": record.id,
+                "name": record.name,
+                "grade": grading_utils.grade(record.rank),
+                "max_stars": grading_utils.max_stars(record.rank),
+                "stars": grading_utils.stars(record.rank),
+                "diff": (record.rank - record.initial),
+                "visible": record.visible
+            },
+            query,
+        )
+    )

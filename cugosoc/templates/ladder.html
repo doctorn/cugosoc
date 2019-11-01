@@ -1,0 +1,92 @@
+{% import "macros.jinja" as macros %}
+{% extends "base.html" %}
+{% block title %}Ladder{% endblock %}
+{% block stylesheet %}ladder.css{% endblock %}
+{% block content %}
+<script type="text/javascript">
+  function submitResult() {
+    var winner = document.querySelector("#winner");
+    var loser = document.querySelector("#loser");
+    var error = document.querySelector(".error");
+
+    var message = "";
+
+    var winnerId = winner.options[winner.selectedIndex].value;
+    var loserId = loser.options[loser.selectedIndex].value;
+
+    winner.selectedIndex = 0;
+    loser.selectedIndex = 0;
+
+    if (winnerId === "") {
+      message += "Please select a winner. ";
+    }
+
+    if (loserId === "") {
+      message += "Please select a loser. ";
+    }
+
+    if (message !== "") {
+      error.innerHTML = message;
+    } else {
+      document.querySelector("#submission_form").classList.add("hidden");
+      document.querySelector("#submission_spinner").classList.add("visible");
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://localhost:5000/submit/" + winnerId + "/" + loserId);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          document.querySelector("#submission_spinner").classList.remove("visible");
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (data.status === "ok") {
+              document.querySelector("#submission_result").classList.add("visible");
+            } else {
+              error.innerHTML = data.error;
+              document.querySelector("#submission_form").classList.remove("hidden");
+            }
+          } catch {
+            error.innerHTML = "Could not read response, please try again";
+            document.querySelector("#submission_form").classList.remove("hidden");
+          }
+        }
+      };
+      xhr.send();
+    }
+  }
+</script>
+<h1>Ladder</h1>
+<p>Welcome to our club ladder! Here you can see the relative levels of the active players at our club. If you want to get involved with the ladder, talk to one of our committee members at one of <a href="/events/">meetings</a>!</p>
+<h2>Result Submission</h2>
+<p>To submit a result, please select the winner and loser of the match and click submit. You should each receive an email allowing you both to confirm that the game occured. Once you have both verified the result, the standings will be updated.</p>
+<div id="submission">
+  <div id="submission_form">
+    <select id="winner">
+      <option value="" disabled selected>Winner</option>
+      {% for player in ladder %}
+        <option value="{{ player.id }}">{{ player.name }}</option>
+      {% endfor %}
+    </select>
+    <h2>vs</h2>
+    <select id="loser">
+      <option value="" disabled selected>Loser</option>
+      {% for player in ladder %}
+        <option value="{{ player.id }}">{{ player.name }}</option>
+      {% endfor %}
+    </select>
+    <input id="submit_button" class="button" type="Submit" name="result-button" value="Submit" onclick="submitResult()">
+    <p class="error"></p>
+  </div>
+  <div id="submission_spinner" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+  <div id="submission_result">
+    <h3>Result submitted!</h3>
+    <p>Please check your email</p>
+  </div>
+</div>
+<h2>Standings</h2>
+<p>Please note that some rankings are ommitted for privacy reasons. If you wish to view your current rank and you are not currently listed, please see the bottom of the standings.</p>
+{% for player in ladder %}
+  {% if player.visible %}
+    {{ macros.add_rung(player) }}
+  {% endif %}
+{% endfor %}
+</div>
+{% endblock %}

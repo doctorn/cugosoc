@@ -1,0 +1,109 @@
+.rung {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  margin: 10px 10px 10px 0px;
+  padding: 0px 10px 0px 10px;
+}
+
+.rung > .info {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+}
+
+.rung > .info > .grade {
+  margin-left: 5px;
+  margin-right: 15px;
+  width: 30px;
+  text-align: right;
+}
+
+.rung > .info > .stars {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.rung > .info > .diff > .positive {
+  color: #78c42d;
+}
+
+.rung > .info > .diff > .neutral {
+  color: #1da1f2;
+}
+
+.rung > .info > .diff > .negative {
+  color: #d84231;
+}
+
+#submission_spinner {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 300ms;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#submission_spinner.visible {
+  opacity: 1;
+}
+
+#submission {
+  position: relative;
+  width: 100%;
+}
+
+#submission_result {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 300ms;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#submission_result.visible {
+  opacity: 1;
+}
+
+#submission_form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 300ms;
+  pointer-events: all;
+  opacity: 1;
+}
+
+#submission_form.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#submit_button {
+  margin-top: 15px;
+}
+
+select {
+  width: 500px;
+}
+
+@media screen and (max-width: 960px) {
+  select {
+    width: 100%;
+  }
+
+  #submit_button {
+    width: 100%;
+  }
+}

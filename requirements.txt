@@ -3,5 +3,6 @@ flaskext
 Flask-Admin
 Flask-SQLAlchemy
 Flask-BasicAuth
+Flask-Mail
 Markdown
 werkzeug

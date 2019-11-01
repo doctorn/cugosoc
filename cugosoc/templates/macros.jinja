@@ -16,3 +16,30 @@
     <a class="expand" href="/event/{{ event.id }}"><span class="mdi mdi-open-in-new"></span></a>
   </div>
 {%- endmacro %}
+
+{% macro add_rung(player) -%}
+  <div class="rung">
+    <p class="name">{{ player.name }}</p>
+    <div class="info">
+      <div class="stars">
+        {% for n in range(player.max_stars) %}
+          {% if n < player.stars %}
+            <p><span class="mdi mdi-star"></span></p>
+          {% else %}
+            <p><span class="mdi mdi-star-outline"></span></p>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <p class="grade">{{ player.grade }}</p>
+      <div class="diff">
+        {% if player.diff < 0 %}
+          <p class="negative"><span class="mdi mdi-arrow-down"></span></p>
+        {% elif player.diff == 0 %}
+          <p class="neutral"><span class="mdi mdi-minus"></span></p>
+        {% else %}
+          <p class="positive"><span class="mdi mdi-arrow-up"></span></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{%- endmacro %}
