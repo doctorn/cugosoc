@@ -31,7 +31,7 @@
       document.querySelector("#submission_form").classList.add("hidden");
       document.querySelector("#submission_spinner").classList.add("visible");
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "http://localhost:5000/submit/" + winnerId + "/" + loserId);
+      xhr.open("GET", "https://cugosoc.soc.srcf.net/submit/" + winnerId + "/" + loserId);
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           document.querySelector("#submission_spinner").classList.remove("visible");
