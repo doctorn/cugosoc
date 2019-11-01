@@ -183,7 +183,7 @@ def past():
 # Legacy redirect for BGA competitions page
 @app.route("/competitions/trig2019.html")
 def legacy():
-    return redirect("/event/1")
+    return redirect("https://cugosoc.soc.srcf.net/event/1")
 
 @app.route("/event/<index>")
 def event(index):
@@ -279,7 +279,7 @@ def confirm(token):
                 loser.rank = 0
 
     db.session.commit()
-    return redirect("/ladder/")
+    return redirect("https://cugosoc.soc.srcf.net/ladder/")
 
 @app.route('/admin/logout')
 def logout():
