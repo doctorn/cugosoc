@@ -10,10 +10,17 @@
   padding: 0px 10px 0px 10px;
 }
 
+.rung > .name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .rung > .info {
   display: flex;
   flex-direction: row;
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .rung > .info > .grade {
@@ -26,6 +33,7 @@
 .rung > .info > .stars {
   display: flex;
   flex-direction: row-reverse;
+  flex-shrink: 0;
 }
 
 .rung > .info > .diff > .positive {
