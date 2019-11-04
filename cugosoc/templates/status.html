@@ -1,0 +1,15 @@
+{% import "macros.jinja" as macros %}
+{% extends "base.html" %}
+{% block title %}Ladder Confirmation{% endblock %}
+{% block stylesheet %}status.css{% endblock %}
+{% block content %}
+<div id="status">
+  <h2>Confirmation Successful!</h2>
+  {% if waiting %}
+    <p>Still waiting for confirmation from {{ player }}...</p>
+  {% else %}
+    <p>Your standings should now be updated!</p>
+  {% endif %}
+  <p><a href="/ladder"><span class="mdi mdi-arrow-left"></span>View the ladder</a></p>
+</div>
+{% endblock %}

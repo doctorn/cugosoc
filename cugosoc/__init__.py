@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Markup, redirect, jsonify
+from flask import Flask, render_template, Markup, redirect, jsonify, abort
 from flaskext.markdown import Markdown
 
 from flask_admin import Admin
@@ -9,8 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_basicauth import BasicAuth
 
 from flask_mail import Mail, Message
-
-from flask_migrate import Migrate
 
 import markdown
 from markdown.extensions import tables, fenced_code
@@ -32,7 +30,6 @@ app.config.from_pyfile('config.py')
 
 mail = Mail(app)
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 class Location(db.Model):
     __tablename__ = "locations"
@@ -266,26 +263,38 @@ def confirm(token):
             .first()
     )
     if request is not None:
-        print(token)
-        print(request.winner_token)
-        print(request.loser_token)
+        if request.winner_confirmed and request.loser_confirmed:
+            return render_template('status.html')
+        
+        winner = get_player(request.winner_id)
+        loser = get_player(request.loser_id)
+        opponent_name = ""
+        
         if request.winner_token == token:
             request.winner_confirmed = True
+            opponent_name = loser.name
         elif request.loser_token == token:
             request.loser_confirmed = True
+            opponent_name = winner.name
         
         if request.winner_confirmed and request.loser_confirmed:
-            winner = get_player(request.winner_id)
-            loser = get_player(request.loser_id)
             winner.played += 1
             loser.played += 1
             winner.rank += 1
             loser.rank -= 1
             if loser.rank < 0:
                 loser.rank = 0
-
-    db.session.commit()
-    return redirect("https://cugosoc.soc.srcf.net/ladder/")
+            db.session.commit()
+            return render_template('status.html', waiting=False)
+        else:
+            db.session.commit()
+            return render_template(
+                    'status.html',
+                    waiting=True,
+                    player=opponent_name,
+                )
+    else:
+        abort(404)
 
 @app.route('/admin/logout')
 def logout():
