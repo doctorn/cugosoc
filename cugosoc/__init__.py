@@ -396,3 +396,9 @@ def get_ladder():
             query,
         )
     )
+
+def reset_ladder():
+    for player in Ladder.query:
+        player.initial = player.rank
+        player.played = 0
+        db.session.commit()
